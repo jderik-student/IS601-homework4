@@ -6,9 +6,9 @@ from calculator.operations import add, subtract, multiply, divide
 
 fake = Faker()
 
-def generate_fake_data():
+def generate_test_data(num_records):
 
-    for _ in range(10):
+    for _ in range(num_records):
         a = Decimal(fake.random_number(digits=2))
         b = Decimal(fake.random_number(digits=2))
         operation = fake.random_element(elements=[add, subtract, multiply, divide])
@@ -20,7 +20,11 @@ def generate_fake_data():
 
         yield a, b, operation, expected
 
+def pytest_addoption(parser):
+    parser.addoption("--num_records", action="store", default=10, type=int, help="Number of test records to generate")
+
 def pytest_generate_tests(metafunc):
     if {"a", "b", "expected"}.intersection(set(metafunc.fixturenames)):
-        parameters = list(generate_fake_data())
+        num_records = metafunc.config.getoption("num_records")
+        parameters = list(generate_test_data(num_records))
         metafunc.parametrize("a,b,operation,expected", list(parameters))

@@ -8,23 +8,6 @@ import pytest
 from calculator.calculation import Calculation
 from calculator.operations import add, subtract, multiply, divide
 
-
-@pytest.mark.parametrize(
-    "a, b, operation, expected", 
-    [
-        # Test with Integers
-        (Decimal('6'), Decimal('2'), add, Decimal('8')),
-        (Decimal('6'), Decimal('2'), subtract, Decimal('4')),
-        (Decimal('6'), Decimal('2'), multiply, Decimal('12')),
-        (Decimal('6'), Decimal('2'), divide, Decimal('3')),
-        # Test with Decimals
-        (Decimal('6.6'), Decimal('2.2'), add, Decimal('8.8')),
-        (Decimal('6.6'), Decimal('2.2'), subtract, Decimal('4.4')),
-        (Decimal('6.6'), Decimal('2.2'), multiply, Decimal('14.52')),
-        (Decimal('6.6'), Decimal('2.2'), divide, Decimal('3.0'))
-    ]
-)
-
 def test_operations(a, b, operation, expected):
     """
         Tests Calculations with all four operations aginst both integers and Decimals.
@@ -35,7 +18,9 @@ def test_operations(a, b, operation, expected):
         @param operation: the operation function to be used in th calculation
         @param expected: the expected result of the calculation
     """
-    assert Calculation(a, b, operation).calculate() == expected
+
+    calc = Calculation.create(a, b, operation)
+    assert calc.calculate() == expected, f"Failed {operation.__name__} operation with {a} and {b}"
 
 def test_repr():
     """

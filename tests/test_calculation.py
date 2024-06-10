@@ -3,10 +3,9 @@
     This file contains tests to test the Calculation class
 '''
 
-from decimal import Decimal
 import pytest
 from calculator.calculation import Calculation
-from calculator.operations import add, subtract, multiply, divide
+from calculator.operations import add, divide
 
 def test_operations(a, b, operation, expected):
     """
@@ -28,7 +27,7 @@ def test_repr():
     """
     calc = Calculation.create(6, 2, add)
     expected = "Calculation(6, 2, add)"
-    assert calc.__repr__() == expected
+    assert calc.__repr__() == expected, "The __repr__ method output does not match the expected string."
 
 def test_divide_by_zero_test():
     """

@@ -4,7 +4,7 @@ init-hook='import sys; sys.path.append(".")'
 extension-pkg-whitelist=pydantic
 
 [MAIN]
-max-line-length=150
+max-line-length=200
 
 [MESSAGES CONTROL]
 # Only show these errors

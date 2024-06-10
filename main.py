@@ -1,10 +1,21 @@
+"""
+    Entry point for Calculator program
+"""
 # pylint: disable=unnecessary-dunder-call, invalid-name
+
 
 import sys
 from decimal import Decimal, InvalidOperation
 from calculator import Calculator
 
 def calculate_and_print(a: str, b: str, operation_name: str) -> None:
+    """
+        Takes in 2 operands and an operation, performs the calculation, and prints the result
+
+        @param a: the first operand
+        @param b: the second operand
+        @param operation_name: the name of the operation function
+    """
     operation_mappings = {
         'add': Calculator.add,
         'subtract': Calculator.subtract,
@@ -19,7 +30,6 @@ def calculate_and_print(a: str, b: str, operation_name: str) -> None:
         'divide': "divided by"
     }
 
-    # Unified error handling for decimal conversion
     try:
         a_decimal, b_decimal = map(Decimal, [a, b])
         result = operation_mappings.get(operation_name) # Use get to handle unknown operations
@@ -33,6 +43,9 @@ def calculate_and_print(a: str, b: str, operation_name: str) -> None:
         print(f"An error occurred: {e}")
 
 def main():
+    """
+        Main method, exits if argv does not have 4 elements
+    """
     if len(sys.argv) != 4:
         print("Usage: python calculator_main.py <number1> <number2> <operation>")
         sys.exit(1)
